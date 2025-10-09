@@ -20,6 +20,7 @@ namespace Platformer
 
         private new Rigidbody2D rigidbody;
 
+        public SpriteRenderer SpriteRend;
         public BoxCollider2D WallCheckL;
         public BoxCollider2D WallCheckR;
         public TilemapCollider2D Walls;
@@ -39,7 +40,7 @@ namespace Platformer
             if (Input.GetButton("Horizontal")) 
             {
                 moveInput = Input.GetAxis("Horizontal");
-                if (moveInput == -1)
+                if (moveInput < 0)
                 {
                     if (WallCheckL.IsTouching(Walls) == false)
                     {
@@ -58,28 +59,26 @@ namespace Platformer
             }
             else
             {
+
             }
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
+                rigidbody.gravityScale = 1;
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             }
-
-            if(facingRight == false && moveInput > 0)
+            if (Input.GetKey(KeyCode.Space) == false)
             {
-                Flip();
+                rigidbody.gravityScale = 3;
+            }
+
+            if (facingRight == false && moveInput > 0)
+            {
+                SpriteRend.flipX = false;
             }
             else if(facingRight == true && moveInput < 0)
             {
-                Flip();
+                SpriteRend.flipX = true;
             }
-        }
-
-        private void Flip()
-        {
-            facingRight = !facingRight;
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
         }
 
         private void CheckGround()

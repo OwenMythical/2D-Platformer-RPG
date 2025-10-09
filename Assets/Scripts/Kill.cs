@@ -8,8 +8,6 @@ public class Kill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Touched {other}");
-
         if (other.gameObject.name == "Player")
         {
             HealthScript.TakeDamage(99);
