@@ -63,12 +63,7 @@ namespace Platformer
             }
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
-                rigidbody.gravityScale = 1;
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-            }
-            if (Input.GetKey(KeyCode.Space) == false)
-            {
-                rigidbody.gravityScale = 3;
             }
 
             if (facingRight == false && moveInput > 0)
