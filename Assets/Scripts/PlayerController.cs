@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +59,7 @@ namespace Platformer
             {
                 Anim.SetBool("Running", false);
             }
-            if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
@@ -76,14 +77,40 @@ namespace Platformer
                 facingRight = false;
             }
 
+            if (rigidbody.linearVelocity.y < 0)
+            {
+                Anim.SetBool("Falling", true);
+            }
+            else
+            {
+                Anim.SetBool("Falling", false);
+            }
+
             CheckGround();
         }
 
         private void CheckGround()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.2f);
-            isGrounded = colliders.Length > 1;
-            Anim.SetBool("Grounded", isGrounded);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.1f);
+            bool Found = false;
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.name == "Collide")
+                {
+                    Found = true;
+                    break;
+                }
+            }
+            if (Found == true)
+            {
+                isGrounded = true;
+                Anim.SetBool("Grounded", isGrounded);
+            }
+            else
+            {
+                isGrounded = false;
+                Anim.SetBool("Grounded", isGrounded);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
