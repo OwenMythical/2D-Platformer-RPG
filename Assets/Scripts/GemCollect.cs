@@ -3,7 +3,14 @@ using UnityEngine;
 public class GemCollect : MonoBehaviour
 {
     public int GemValue;
-    public GameHandler GH;
+    GameHandler GH;
+
+    void Awake()
+    {
+        GameObject HandlerObject = GameObject.FindGameObjectWithTag("GameHandler");
+        GH = (GameHandler)HandlerObject.GetComponent("GameHandler");
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")

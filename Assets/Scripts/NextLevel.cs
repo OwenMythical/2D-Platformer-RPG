@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour
 {
+    public GameHandler Handler;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
         {
-            SceneManager.CreateScene("Level2");
+            Handler.NextLevel();
         }
     }
 }
