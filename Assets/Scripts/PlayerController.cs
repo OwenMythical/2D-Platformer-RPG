@@ -24,22 +24,19 @@ namespace Platformer
         public BoxCollider2D WallCheckL;
         public BoxCollider2D WallCheckR;
         public TilemapCollider2D Walls;
+        public Animator Anim;
 
         void Start()
         {
             rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void FixedUpdate()
-        {
-            CheckGround();
-        }
-
         void Update()
         {
+            moveInput = Input.GetAxis("Horizontal");
             if (Input.GetButton("Horizontal")) 
             {
-                moveInput = Input.GetAxis("Horizontal");
+                Anim.SetBool("Running", true);
                 if (moveInput < 0)
                 {
                     if (WallCheckL.IsTouching(Walls) == false)
@@ -48,7 +45,7 @@ namespace Platformer
                         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
                     }
                 }
-                else
+                else if (moveInput > 0)
                 {
                     if (WallCheckR.IsTouching(Walls) == false)
                     {
@@ -59,27 +56,34 @@ namespace Platformer
             }
             else
             {
-
+                Anim.SetBool("Running", false);
             }
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+                isGrounded = false;
+                Anim.SetBool("Grounded", isGrounded);
             }
 
             if (facingRight == false && moveInput > 0)
             {
                 SpriteRend.flipX = false;
+                facingRight = true;
             }
             else if(facingRight == true && moveInput < 0)
             {
                 SpriteRend.flipX = true;
+                facingRight = false;
             }
+
+            CheckGround();
         }
 
         private void CheckGround()
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.2f);
             isGrounded = colliders.Length > 1;
+            Anim.SetBool("Grounded", isGrounded);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
