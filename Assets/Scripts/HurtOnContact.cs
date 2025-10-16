@@ -5,6 +5,7 @@ using UnityEngine;
 public class HurtOnContact : MonoBehaviour
 {
     public bool LaunchOnHurt;
+    public bool KnockbackOnHurt;
     HealthManager HM;
     bool Cooldown;
 
@@ -20,16 +21,16 @@ public class HurtOnContact : MonoBehaviour
         {
             if (Cooldown == false)
             {
-                Cooldown = true;
-                HM.TakeDamage(1, LaunchOnHurt);
                 Wait(1);
-                Cooldown = false;
+                HM.TakeDamage(1, LaunchOnHurt, KnockbackOnHurt, transform.position);
             }
         }
     }
 
     IEnumerator Wait(int Time)
     {
+        Cooldown = true;
         yield return new WaitForSeconds(Time);
+        Cooldown = false;
     }
 }

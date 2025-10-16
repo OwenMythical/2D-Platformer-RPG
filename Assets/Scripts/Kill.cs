@@ -10,7 +10,7 @@ public class Kill : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            HealthScript.TakeDamage(99,false);
+            HealthScript.TakeDamage(99,false,false,transform.position);
         }
     }
 }

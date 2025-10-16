@@ -10,6 +10,7 @@ namespace Platformer
     {
         public float movingSpeed;
         public float jumpForce;
+        public bool Stunned;
         private float moveInput;
 
         private bool facingRight = false;
@@ -17,13 +18,13 @@ namespace Platformer
         public bool deathState = false;
 
         private bool isGrounded;
-        public Transform groundCheck;
 
         private new Rigidbody2D rigidbody;
 
         public SpriteRenderer SpriteRend;
         public BoxCollider2D WallCheckL;
         public BoxCollider2D WallCheckR;
+        public Transform groundCheck;
         public TilemapCollider2D Walls;
         public Animator Anim;
 
@@ -38,20 +39,25 @@ namespace Platformer
             if (Input.GetButton("Horizontal")) 
             {
                 Anim.SetBool("Running", true);
-                if (moveInput < 0)
+                if (Stunned == false)
                 {
-                    if (WallCheckL.IsTouching(Walls) == false)
+                    if (moveInput < 0)
                     {
-                        Vector3 direction = transform.right * moveInput;
-                        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
+                        if (WallCheckL.IsTouching(Walls) == false)
+                        {
+                            Vector3 direction = transform.right * moveInput;
+                            rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
+                            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
+                        }
                     }
-                }
-                else if (moveInput > 0)
-                {
-                    if (WallCheckR.IsTouching(Walls) == false)
+                    else if (moveInput > 0)
                     {
-                        Vector3 direction = transform.right * moveInput;
-                        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
+                        if (WallCheckR.IsTouching(Walls) == false)
+                        {
+                            Vector3 direction = transform.right * moveInput;
+                            rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
+                            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
+                        }
                     }
                 }
             }
@@ -91,7 +97,7 @@ namespace Platformer
 
         private void CheckGround()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.1f);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheck.position,groundCheck.localScale,0f);
             bool Found = false;
             foreach (Collider2D collider in colliders)
             {
@@ -110,14 +116,6 @@ namespace Platformer
             {
                 isGrounded = false;
                 Anim.SetBool("Grounded", isGrounded);
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.tag == "Coin")
-            {
-                Destroy(other.gameObject);
             }
         }
     }
