@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 namespace Platformer
 {
@@ -12,6 +14,7 @@ namespace Platformer
         public float jumpForce;
         public bool Stunned;
         private float moveInput;
+        private bool AttackCooldown = false;
 
         private bool facingRight = false;
         [HideInInspector]
@@ -71,6 +74,16 @@ namespace Platformer
                 isGrounded = false;
                 Anim.SetBool("Grounded", isGrounded);
             }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (AttackCooldown == false)
+                {
+                    AttackCooldown = true;
+                    StartCoroutine(AttackWait(0.5f));
+                    Debug.Log("Attacking");
+                    //////////////////////////////////////////////// finish attack functionality /////////////////////////////////////////////////
+                }
+            }
 
             if (facingRight == false && moveInput > 0)
             {
@@ -92,7 +105,8 @@ namespace Platformer
                 Anim.SetBool("Falling", false);
             }
 
-            CheckGround();
+            CheckGround(); 
+
         }
 
         private void CheckGround()
@@ -117,6 +131,12 @@ namespace Platformer
                 isGrounded = false;
                 Anim.SetBool("Grounded", isGrounded);
             }
+        }
+
+        IEnumerator AttackWait(float Time)
+        {
+            yield return new WaitForSeconds(Time);
+            AttackCooldown = false;
         }
     }
 }

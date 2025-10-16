@@ -1,20 +1,20 @@
-using Unity.VisualScripting;
-using System.Collections;
-using UnityEngine;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEngine;
 
 public class SlimeJump : MonoBehaviour
 {
+    System.Random RNG = new();
     public Rigidbody2D RB;
     public Animator Anim;
     public Transform groundCheck;
     public Transform Player;
     public BoxCollider2D Collider;
+    public SpriteRenderer SRenderer;
+    public int Health;
     bool isGrounded = true;
-    private void Awake()
-    {
-        
-    }
 
     void Update()
     {
@@ -27,11 +27,11 @@ public class SlimeJump : MonoBehaviour
 
     IEnumerator Jump()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds((float)RNG.Next(30,40)/10);
         Anim.SetBool("Jumping", true);
-        yield return new WaitForSeconds(1);
-        Collider.excludeLayers = LayerMask.GetMask("Player");
-        RB.AddForce(transform.up * 8, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1f);
+        Collider.excludeLayers = LayerMask.GetMask("Characters");
+        RB.AddForce(transform.up * 10, ForceMode2D.Impulse);
         float DistanceX = Player.position.x - transform.position.x;
         float DistanceY = Player.position.y - transform.position.y;
         if (Math.Abs(DistanceX) < 5 && Math.Abs(DistanceY) < 5)
@@ -39,9 +39,11 @@ public class SlimeJump : MonoBehaviour
             RB.AddForce(transform.right * DistanceX, ForceMode2D.Impulse);
             if (DistanceX < 0)
             {
+                SRenderer.flipX = false;
             }
             else if (DistanceX > 0)
             {
+                SRenderer.flipX = true;
             }
         }
         yield return new WaitForSeconds(0.5f);
@@ -70,5 +72,17 @@ public class SlimeJump : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public IEnumerator TakeDamage(int Damage)
+    {
+        Health -= Damage;
+        if (Health < 0)
+        {
+            Destroy(gameObject);
+        }
+        SRenderer.color = new Color(100, 100, 100);
+        yield return new WaitForSeconds(0.1f);
+        SRenderer.color = new Color(255, 255, 255);
     }
 }

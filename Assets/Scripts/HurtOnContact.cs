@@ -21,7 +21,7 @@ public class HurtOnContact : MonoBehaviour
         {
             if (Cooldown == false)
             {
-                Wait(1);
+                StartCoroutine(Wait(1));
                 HM.TakeDamage(1, LaunchOnHurt, KnockbackOnHurt, transform.position);
             }
         }
