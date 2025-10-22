@@ -49,5 +49,6 @@ public class HealthManager : MonoBehaviour
             yield return new WaitForSeconds(StunTime);
             PC.Stunned = false;
         }
+        GH.HealthChanged(Health);
     }
 }

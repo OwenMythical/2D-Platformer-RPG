@@ -1,8 +1,10 @@
+using UnityEngine;
 using System.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
-public class HurtOnContact : MonoBehaviour
+public class Kill : MonoBehaviour
 {
     public bool LaunchOnHurt;
     public bool KnockbackOnHurt;
@@ -21,8 +23,8 @@ public class HurtOnContact : MonoBehaviour
         {
             if (Cooldown == false)
             {
-                StartCoroutine(Wait(0.5f));
-                HM.TakeDamage(1, LaunchOnHurt, KnockbackOnHurt, transform.position);
+                StartCoroutine(Wait(0.1f));
+                HM.TakeDamage(2, LaunchOnHurt, KnockbackOnHurt, transform.position);
             }
         }
     }

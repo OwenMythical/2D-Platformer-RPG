@@ -7,6 +7,7 @@ public class GameHandler : MonoBehaviour
     int GemsCollected;
     int SceneIndex = 1;
     public TMP_Text GemCounter;
+    public TMP_Text HealthCounter;
     GameObject[] Gems;
 
     string[] Scenes = {"Level1"};
@@ -30,18 +31,27 @@ public class GameHandler : MonoBehaviour
     {
         GemsCollected += Value;
         GemCounter.text = $"Gems: {GemsCollected}";
+        if (GemsCollected < 5)
+        {
+            GemCounter.color = new Color(1,0,0);
+        }
+        else
+        {
+            GemCounter.color = new Color(1, 0.8f, 1);
+        }
     }
 
     public void Died()
     {
-        if (GemsCollected == 0)
+        if (GemsCollected < 5)
         {
             SceneManager.LoadScene("Menu");
             Destroy(gameObject);
         }
-        if (GemsCollected <= 10)
+        else if (GemsCollected < 10)
         {
             GemsCollected = 0;
+            GemCounter.color = new Color(1, 0, 0);
         }
         else
         {
@@ -54,5 +64,10 @@ public class GameHandler : MonoBehaviour
     {
         SceneIndex += 1;
         SceneManager.LoadScene(Scenes[SceneIndex]);
+    }
+
+    public void HealthChanged(int Health)
+    {
+        HealthCounter.text = $"Health: {Health}/5";
     }
 }
