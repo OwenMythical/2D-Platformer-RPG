@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -30,6 +31,10 @@ namespace Platformer
         public Transform groundCheck;
         public TilemapCollider2D Walls;
         public Animator Anim;
+        public SpriteRenderer AttackRenderer;
+        public BoxCollider2D AttackBox;
+        public Animator AttackAnim;
+        public Transform AttackForm;
 
         void Start()
         {
@@ -68,20 +73,20 @@ namespace Platformer
             {
                 Anim.SetBool("Running", false);
             }
+
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
                 Anim.SetBool("Grounded", isGrounded);
             }
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (AttackCooldown == false)
                 {
                     AttackCooldown = true;
-                    StartCoroutine(AttackWait(0.5f));
-                    Debug.Log("Attacking");
-                    //////////////////////////////////////////////// finish attack functionality /////////////////////////////////////////////////
+                    StartCoroutine(Attack());
                 }
             }
 
@@ -133,9 +138,34 @@ namespace Platformer
             }
         }
 
-        IEnumerator AttackWait(float Time)
+        IEnumerator Attack()
         {
-            yield return new WaitForSeconds(Time);
+            Collider2D[] Hit = Array.Empty<Collider2D>();
+            AttackRenderer.enabled = true;
+            AttackRenderer.gameObject.transform.localScale.Set(0.3f, 0.9f, 1f);
+            AttackAnim.SetBool("Attacking", true);
+            for (int i = 1; i <= 4; i++)
+            {
+                foreach (Collider2D Item in Hit)
+                {
+                    Debug.Log(Item);
+                }
+                yield return new WaitForSeconds(0.05f);
+                Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackForm.position, AttackForm.localScale, 0f);
+                foreach (Collider2D collider in colliders)
+                {
+                    if (collider.CompareTag("Enemy") && !(Hit.Contains(collider)))
+                    {
+                        Hit.Append(collider);
+                        EnemyHealthScript HPScript = (EnemyHealthScript)collider.gameObject.GetComponent("EnemyHealthScript");
+                        StartCoroutine(HPScript.TakeDamage(1));
+                        break;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.3f);
+            AttackRenderer.enabled = false;
+            AttackAnim.SetBool("Attacking", false);
             AttackCooldown = false;
         }
     }

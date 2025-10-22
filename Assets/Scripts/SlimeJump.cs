@@ -13,7 +13,6 @@ public class SlimeJump : MonoBehaviour
     public Transform Player;
     public BoxCollider2D Collider;
     public SpriteRenderer SRenderer;
-    public int Health;
     bool isGrounded = true;
 
     void Update()
@@ -72,17 +71,5 @@ public class SlimeJump : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
         }
-    }
-
-    public IEnumerator TakeDamage(int Damage)
-    {
-        Health -= Damage;
-        if (Health < 0)
-        {
-            Destroy(gameObject);
-        }
-        SRenderer.color = new Color(100, 100, 100);
-        yield return new WaitForSeconds(0.1f);
-        SRenderer.color = new Color(255, 255, 255);
     }
 }
