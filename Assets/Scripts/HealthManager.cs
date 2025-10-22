@@ -10,8 +10,15 @@ public class HealthManager : MonoBehaviour
     public int Health;
     public Rigidbody2D RB;
     public PlayerController PC;
+    GameHandler GH;
 
     public GameObject Spawn;
+
+    void Awake()
+    {
+        GameObject HandlerObject = GameObject.FindGameObjectWithTag("GameHandler");
+        GH = (GameHandler)HandlerObject.GetComponent("GameHandler");
+    }
 
     public void TakeDamage(int Damage,bool Launch, bool Knock, Vector3 Source)
     {
@@ -20,6 +27,7 @@ public class HealthManager : MonoBehaviour
         {
             transform.position = Spawn.transform.position;
             Health = MaxHealth;
+            GH.Died();
         }
         else if (Launch == true)
         {

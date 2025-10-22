@@ -31,7 +31,6 @@ namespace Platformer
         public Transform groundCheck;
         public TilemapCollider2D Walls;
         public Animator Anim;
-        public SpriteRenderer AttackRenderer;
         public BoxCollider2D AttackBox;
         public Animator AttackAnim;
         public Transform AttackForm;
@@ -53,6 +52,8 @@ namespace Platformer
                     {
                         if (WallCheckL.IsTouching(Walls) == false)
                         {
+                            AttackForm.localPosition = new Vector3(-0.7f, 0, 0);
+                            AttackForm.localScale = new Vector3(-1, 1, 1);
                             Vector3 direction = transform.right * moveInput;
                             rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
@@ -62,6 +63,8 @@ namespace Platformer
                     {
                         if (WallCheckR.IsTouching(Walls) == false)
                         {
+                            AttackForm.localPosition = new Vector3(0.7f, 0, 0);
+                            AttackForm.localScale = new Vector3(1, 1, 1);
                             Vector3 direction = transform.right * moveInput;
                             rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
@@ -140,31 +143,24 @@ namespace Platformer
 
         IEnumerator Attack()
         {
-            Collider2D[] Hit = Array.Empty<Collider2D>();
-            AttackRenderer.enabled = true;
-            AttackRenderer.gameObject.transform.localScale.Set(0.3f, 0.9f, 1f);
+            var Hit = new ArrayList();
             AttackAnim.SetBool("Attacking", true);
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 3; i++)
             {
-                foreach (Collider2D Item in Hit)
-                {
-                    Debug.Log(Item);
-                }
                 yield return new WaitForSeconds(0.05f);
                 Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackForm.position, AttackForm.localScale, 0f);
                 foreach (Collider2D collider in colliders)
                 {
                     if (collider.CompareTag("Enemy") && !(Hit.Contains(collider)))
                     {
-                        Hit.Append(collider);
+                        Hit.Add(collider);
                         EnemyHealthScript HPScript = (EnemyHealthScript)collider.gameObject.GetComponent("EnemyHealthScript");
                         StartCoroutine(HPScript.TakeDamage(1));
                         break;
                     }
                 }
             }
-            yield return new WaitForSeconds(0.3f);
-            AttackRenderer.enabled = false;
+            yield return new WaitForSeconds(0.2f);
             AttackAnim.SetBool("Attacking", false);
             AttackCooldown = false;
         }

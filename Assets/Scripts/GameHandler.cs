@@ -9,7 +9,7 @@ public class GameHandler : MonoBehaviour
     public TMP_Text GemCounter;
     GameObject[] Gems;
 
-    string[] Scenes = {"Scene1","Scene2","Scene3"};
+    string[] Scenes = {"Level1"};
 
     public static GameHandler instance = null;
 
@@ -29,6 +29,24 @@ public class GameHandler : MonoBehaviour
     public void GemCollected(int Value)
     {
         GemsCollected += Value;
+        GemCounter.text = $"Gems: {GemsCollected}";
+    }
+
+    public void Died()
+    {
+        if (GemsCollected == 0)
+        {
+            SceneManager.LoadScene("Menu");
+            Destroy(gameObject);
+        }
+        if (GemsCollected <= 10)
+        {
+            GemsCollected = 0;
+        }
+        else
+        {
+            GemsCollected /= 2;
+        }
         GemCounter.text = $"Gems: {GemsCollected}";
     }
 
