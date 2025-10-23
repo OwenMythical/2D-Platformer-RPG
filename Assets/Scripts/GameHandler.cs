@@ -12,7 +12,7 @@ public class GameHandler : MonoBehaviour
     public TMP_Text ScoreCounter;
     GameObject[] Gems;
 
-    string[] Scenes = {"Level1"};
+    string[] Scenes = {"Level1","Level2"};
 
     public static GameHandler instance = null;
 
