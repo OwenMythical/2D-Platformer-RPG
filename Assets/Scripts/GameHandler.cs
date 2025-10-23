@@ -6,8 +6,10 @@ public class GameHandler : MonoBehaviour
 {
     int GemsCollected = 5;
     int SceneIndex = 1;
+    int Score = 0;
     public TMP_Text GemCounter;
     public TMP_Text HealthCounter;
+    public TMP_Text ScoreCounter;
     GameObject[] Gems;
 
     string[] Scenes = {"Level1"};
@@ -71,5 +73,11 @@ public class GameHandler : MonoBehaviour
     public void HealthChanged(int Health)
     {
         HealthCounter.text = $"Health: {Health}/5";
+    }
+
+    public void AddScore(int ExtraScore)
+    {
+        Score += ExtraScore;
+        ScoreCounter.text = $"Score: {Score}";
     }
 }

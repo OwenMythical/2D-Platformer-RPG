@@ -22,6 +22,7 @@ public class SlimeJump : MonoBehaviour
 
     void Update()
     {
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         if (isGrounded == true)
         {
             isGrounded = false;
@@ -34,7 +35,7 @@ public class SlimeJump : MonoBehaviour
         yield return new WaitForSeconds((float)RNG.Next(30,40)/10);
         Anim.SetBool("Jumping", true);
         yield return new WaitForSeconds(1f);
-        RB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        RB.constraints = RigidbodyConstraints2D.None;
         Collider.excludeLayers = LayerMask.GetMask("Characters");
         RB.AddForce(transform.up * 10, ForceMode2D.Impulse);
         float DistanceX = Player.position.x - transform.position.x;
@@ -72,7 +73,7 @@ public class SlimeJump : MonoBehaviour
             if (Found == true)
             {
                 isGrounded = true;
-                RB.constraints = RigidbodyConstraints2D.FreezeAll;
+                RB.constraints = RigidbodyConstraints2D.FreezePositionX;
                 Anim.SetBool("Jumping", false);
                 Collider.excludeLayers = LayerMask.GetMask("Nothing");
             }

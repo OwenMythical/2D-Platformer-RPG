@@ -16,6 +16,7 @@ public class GemCollect : MonoBehaviour
         if (collision.gameObject.name == "Player")
         {
             GH.GemCollected(GemValue);
+            GH.AddScore(GemValue*50);
             gameObject.SetActive(false);
         }
     }

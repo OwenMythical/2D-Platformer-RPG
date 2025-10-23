@@ -6,11 +6,20 @@ public class EnemyHealthScript : MonoBehaviour
 {
     public SpriteRenderer SRenderer;
     public int Health;
+    public int Score;
+    GameHandler GH;
+
+    void Awake()
+    {
+        GameObject HandlerObject = GameObject.FindGameObjectWithTag("GameHandler");
+        GH = (GameHandler)HandlerObject.GetComponent("GameHandler");
+    }
     public IEnumerator TakeDamage(int Damage)
     {
         Health -= Damage;
         if (Health <= 0)
         {
+            GH.AddScore(Score);
             Destroy(gameObject);
         }
         else

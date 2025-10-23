@@ -375,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SRenderer: {fileID: 8125504760594557788}
   Health: 7
+  Score: 150
 --- !u!1 &8377484656095297224
 GameObject:
   m_ObjectHideFlags: 0

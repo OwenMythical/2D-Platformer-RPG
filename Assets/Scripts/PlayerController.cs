@@ -14,6 +14,9 @@ namespace Platformer
         public float movingSpeed;
         public float jumpForce;
         public bool Stunned;
+        public bool DashUnlocked;
+        bool Dashing = false;
+        bool DashCool = false;
         private float moveInput;
         private bool AttackCooldown = false;
 
@@ -23,8 +26,7 @@ namespace Platformer
 
         private bool isGrounded;
 
-        private new Rigidbody2D rigidbody;
-
+        public Rigidbody2D RB;
         public SpriteRenderer SpriteRend;
         public BoxCollider2D WallCheckL;
         public BoxCollider2D WallCheckR;
@@ -47,12 +49,12 @@ namespace Platformer
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
-            rigidbody = GetComponent<Rigidbody2D>();
         }
 
         void Update()
         {
             moveInput = Input.GetAxis("Horizontal");
+            Vector3 direction = transform.right * moveInput;
             if (Input.GetButton("Horizontal")) 
             {
                 Anim.SetBool("Running", true);
@@ -64,8 +66,7 @@ namespace Platformer
                         {
                             AttackForm.localPosition = new Vector3(-0.7f, 0, 0);
                             AttackForm.localScale = new Vector3(-1, 1, 1);
-                            Vector3 direction = transform.right * moveInput;
-                            rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
+                            RB.linearVelocity = new Vector2(0, RB.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
                         }
                     }
@@ -75,8 +76,7 @@ namespace Platformer
                         {
                             AttackForm.localPosition = new Vector3(0.7f, 0, 0);
                             AttackForm.localScale = new Vector3(1, 1, 1);
-                            Vector3 direction = transform.right * moveInput;
-                            rigidbody.linearVelocity = new Vector2(0, rigidbody.linearVelocity.y);
+                            RB.linearVelocity = new Vector2(0, RB.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
                         }
                     }
@@ -89,9 +89,18 @@ namespace Platformer
 
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
-                rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+                RB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
                 Anim.SetBool("Grounded", isGrounded);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && DashUnlocked == true && DashCool == false)
+            {
+                if (moveInput != 0)
+                {
+                    DashCool = true;
+                    Dashing = true;
+                    StartCoroutine(Dash());
+                }
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -114,7 +123,7 @@ namespace Platformer
                 facingRight = false;
             }
 
-            if (rigidbody.linearVelocity.y < 0)
+            if (RB.linearVelocity.y < 0)
             {
                 Anim.SetBool("Falling", true);
             }
@@ -173,6 +182,19 @@ namespace Platformer
             yield return new WaitForSeconds(0.2f);
             AttackAnim.SetBool("Attacking", false);
             AttackCooldown = false;
+        }
+
+        IEnumerator Dash()
+        {
+            SpriteRend.color = new Color(0.9f, 0.8f, 0.8f);
+            movingSpeed += 5;
+            yield return new WaitForSeconds(0.5f);
+            movingSpeed -= 7;
+            Dashing = false;
+            yield return new WaitForSeconds(3f);
+            movingSpeed += 2;
+            SpriteRend.color = new Color(1f, 1f, 1f);
+            DashCool = false;
         }
     }
 }

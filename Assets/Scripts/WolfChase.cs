@@ -28,6 +28,7 @@ public class WolfChase : MonoBehaviour
         {
             if (Found == true)
             {
+                Boredom = 0;
                 StartCoroutine(Chase());
             }
             else

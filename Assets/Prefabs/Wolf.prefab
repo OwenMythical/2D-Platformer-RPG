@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthScript
   SRenderer: {fileID: 1804139957826789604}
   Health: 5
+  Score: 100
 --- !u!50 &1914699224373899002
 Rigidbody2D:
   serializedVersion: 5
