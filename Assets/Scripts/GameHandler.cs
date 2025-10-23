@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameHandler : MonoBehaviour
 {
     int GemsCollected = 5;
-    int SceneIndex = 1;
+    int SceneIndex = 0;
     int Score = 0;
     public TMP_Text GemCounter;
     public TMP_Text HealthCounter;
