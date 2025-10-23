@@ -1,3 +1,5 @@
+using Platformer;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +13,7 @@ public class GameHandler : MonoBehaviour
     public TMP_Text HealthCounter;
     public TMP_Text ScoreCounter;
     GameObject[] Gems;
+    HealthManager PlayerM;
 
     string[] Scenes = {"Level1","Level2"};
 
@@ -27,6 +30,8 @@ public class GameHandler : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        GameObject PlayerObj = GameObject.FindGameObjectWithTag("Player");
+        PlayerM = (HealthManager)PlayerObj.GetComponent("HealthManager");
     }
 
     public void GemCollected(int Value)
@@ -63,11 +68,11 @@ public class GameHandler : MonoBehaviour
         }
         GemCounter.text = $"Gems: {GemsCollected}";
     }
-
     public void NextLevel()
     {
         SceneIndex += 1;
         SceneManager.LoadScene(Scenes[SceneIndex]);
+        PlayerM.Respawn();
     }
 
     public void HealthChanged(int Health)

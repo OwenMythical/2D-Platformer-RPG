@@ -18,10 +18,7 @@ namespace Platformer
         bool DashCool = false;
         private float moveInput;
         private bool AttackCooldown = false;
-
         private bool facingRight = false;
-        [HideInInspector]
-        public bool deathState = false;
 
         private bool isGrounded;
 
@@ -30,7 +27,7 @@ namespace Platformer
         public BoxCollider2D WallCheckL;
         public BoxCollider2D WallCheckR;
         public Transform groundCheck;
-        public TilemapCollider2D Walls;
+        TilemapCollider2D Walls;
         public Animator Anim;
         public BoxCollider2D AttackBox;
         public Animator AttackAnim;
@@ -48,10 +45,14 @@ namespace Platformer
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
+            GameObject TilemapObject = GameObject.FindGameObjectWithTag("Tilemap");
+            Walls = (TilemapCollider2D)TilemapObject.GetComponent("TilemapCollider2D");
         }
 
         void Update()
         {
+            GameObject TilemapObject = GameObject.FindGameObjectWithTag("Tilemap");
+            Walls = (TilemapCollider2D)TilemapObject.GetComponent("TilemapCollider2D");
             moveInput = Input.GetAxis("Horizontal");
             Vector3 direction = transform.right * moveInput;
             if (Input.GetButton("Horizontal")) 

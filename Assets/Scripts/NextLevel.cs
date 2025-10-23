@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class NextLevel : MonoBehaviour
 {
     GameHandler GH;
+    bool Done = false;
 
     void Awake()
     {
@@ -15,7 +16,11 @@ public class NextLevel : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            GH.NextLevel();
+            if (Done == false)
+            {
+                Done = true;
+                GH.NextLevel();
+            }
         }
     }
 }

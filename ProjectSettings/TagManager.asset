@@ -10,6 +10,7 @@ TagManager:
   - Spawn
   - Coin
   - Destructible
+  - Tilemap
   layers:
   - Default
   - TransparentFX

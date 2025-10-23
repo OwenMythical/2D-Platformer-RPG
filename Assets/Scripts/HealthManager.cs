@@ -21,6 +21,12 @@ public class HealthManager : MonoBehaviour
         gameObject.transform.position = Spawn.transform.position;
     }
 
+    public void Respawn()
+    {
+        Spawn = GameObject.FindGameObjectWithTag("Spawn");
+        gameObject.transform.position = Spawn.transform.position;
+    }
+
     public void TakeDamage(int Damage,bool Launch, bool Knock, Vector3 Source)
     {
         Health -= Damage;
