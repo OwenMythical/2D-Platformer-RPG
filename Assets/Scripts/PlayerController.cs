@@ -165,7 +165,7 @@ namespace Platformer
             for (int i = 1; i <= 3; i++)
             {
                 yield return new WaitForSeconds(0.05f);
-                Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackForm.position, AttackForm.localScale, 0f);
+                Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackBox.transform.position, AttackBox.size, 0f);
                 foreach (Collider2D collider in colliders)
                 {
                     if ((collider.CompareTag("Enemy") || collider.CompareTag("Destructible")) && !(Hit.Contains(collider)))
