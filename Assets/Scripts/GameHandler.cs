@@ -50,21 +50,21 @@ public class GameHandler : MonoBehaviour
 
     public void Died()
     {
-        if (GemsCollected < 5)
+        if (GemsCollected < 10)
         {
             SceneManager.LoadScene("Menu");
             Destroy(gameObject);
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             Destroy(Player);
         }
-        else if (GemsCollected < 10)
+        else if (GemsCollected < 20)
         {
             GemsCollected = 0;
             GemCounter.color = new Color(1, 0, 0);
         }
         else
         {
-            GemsCollected /= 2;
+            GemsCollected /= 4;
         }
         GemCounter.text = $"Gems: {GemsCollected}";
     }
@@ -77,7 +77,7 @@ public class GameHandler : MonoBehaviour
 
     public void HealthChanged(int Health)
     {
-        HealthCounter.text = $"Health: {Health}/5";
+        HealthCounter.text = $"Health: {Health}/10";
     }
 
     public void AddScore(int ExtraScore)
