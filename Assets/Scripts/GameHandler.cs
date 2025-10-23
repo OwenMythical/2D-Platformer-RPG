@@ -38,7 +38,7 @@ public class GameHandler : MonoBehaviour
     {
         GemsCollected += Value;
         GemCounter.text = $"Gems: {GemsCollected}";
-        if (GemsCollected < 5)
+        if (GemsCollected < 10)
         {
             GemCounter.color = new Color(1,0,0);
         }
