@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gems: 5
+  m_text: 'Gems: 10
 
 '
   m_isRightToLeft: 0
