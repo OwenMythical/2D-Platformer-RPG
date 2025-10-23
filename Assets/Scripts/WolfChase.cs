@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WolfChase : MonoBehaviour
 {
+    System.Random RNG = new();
     public Rigidbody2D RB;
     public Animator Anim;
     public BoxCollider2D Collider;
@@ -33,7 +34,7 @@ public class WolfChase : MonoBehaviour
             }
             else
             {
-                Boredom += 1;
+                Boredom += RNG.Next(1,3);
                 if (Boredom > 1500)
                 {
                     Boredom = 0;
