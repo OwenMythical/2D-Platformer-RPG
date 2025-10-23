@@ -64,7 +64,7 @@ namespace Platformer
                     {
                         if (WallCheckL.IsTouching(Walls) == false)
                         {
-                            AttackForm.localPosition = new Vector3(-0.7f, 0, 0);
+                            AttackForm.localPosition = new Vector3(-0.75f, 0, 0);
                             AttackForm.localScale = new Vector3(-1, 1, 1);
                             RB.linearVelocity = new Vector2(0, RB.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
@@ -74,7 +74,7 @@ namespace Platformer
                     {
                         if (WallCheckR.IsTouching(Walls) == false)
                         {
-                            AttackForm.localPosition = new Vector3(0.7f, 0, 0);
+                            AttackForm.localPosition = new Vector3(0.75f, 0, 0);
                             AttackForm.localScale = new Vector3(1, 1, 1);
                             RB.linearVelocity = new Vector2(0, RB.linearVelocity.y);
                             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, movingSpeed * Time.deltaTime);
