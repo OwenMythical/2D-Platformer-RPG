@@ -11,13 +11,14 @@ public class HealthManager : MonoBehaviour
     public Rigidbody2D RB;
     public PlayerController PC;
     GameHandler GH;
-
-    public GameObject Spawn;
+    GameObject Spawn;
 
     void Awake()
     {
         GameObject HandlerObject = GameObject.FindGameObjectWithTag("GameHandler");
         GH = (GameHandler)HandlerObject.GetComponent("GameHandler");
+        Spawn = GameObject.FindGameObjectWithTag("Spawn");
+        gameObject.transform.position = Spawn.transform.position;
     }
 
     public void TakeDamage(int Damage,bool Launch, bool Knock, Vector3 Source)
@@ -38,7 +39,7 @@ public class HealthManager : MonoBehaviour
         {
             RB.linearVelocity = new Vector2(0, 0);
             Vector2 DirectionalForce = (transform.position - Source);
-            DirectionalForce = new Vector2(Math.Sign(DirectionalForce.x), Math.Sign(DirectionalForce.y));
+            DirectionalForce = new Vector2(Math.Sign(DirectionalForce.x), 1);
             RB.linearVelocity = DirectionalForce * 5;
             StartCoroutine(Stun(0.5f));
         }

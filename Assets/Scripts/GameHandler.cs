@@ -47,6 +47,8 @@ public class GameHandler : MonoBehaviour
         {
             SceneManager.LoadScene("Menu");
             Destroy(gameObject);
+            GameObject Player = GameObject.FindGameObjectWithTag("Player");
+            Destroy(Player);
         }
         else if (GemsCollected < 10)
         {

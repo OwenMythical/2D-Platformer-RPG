@@ -10,10 +10,15 @@ public class SlimeJump : MonoBehaviour
     public Rigidbody2D RB;
     public Animator Anim;
     public Transform groundCheck;
-    public Transform Player;
+    Transform Player;
     public BoxCollider2D Collider;
     public SpriteRenderer SRenderer;
     bool isGrounded = true;
+
+    void Awake()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Update()
     {

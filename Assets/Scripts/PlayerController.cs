@@ -35,8 +35,18 @@ namespace Platformer
         public Animator AttackAnim;
         public Transform AttackForm;
 
-        void Start()
+        public static PlayerController instance = null;
+        void Awake()
         {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+            DontDestroyOnLoad(gameObject);
             rigidbody = GetComponent<Rigidbody2D>();
         }
 
