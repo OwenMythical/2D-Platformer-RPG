@@ -15,7 +15,6 @@ namespace Platformer
         public float jumpForce;
         public bool Stunned;
         public bool DashUnlocked;
-        bool Dashing = false;
         bool DashCool = false;
         private float moveInput;
         private bool AttackCooldown = false;
@@ -98,7 +97,6 @@ namespace Platformer
                 if (moveInput != 0)
                 {
                     DashCool = true;
-                    Dashing = true;
                     StartCoroutine(Dash());
                 }
             }
@@ -142,7 +140,7 @@ namespace Platformer
             bool Found = false;
             foreach (Collider2D collider in colliders)
             {
-                if (collider.name == "Collide")
+                if (collider.name == "Collide" || collider.tag == "Destructible")
                 {
                     Found = true;
                     break;
@@ -170,7 +168,7 @@ namespace Platformer
                 Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackForm.position, AttackForm.localScale, 0f);
                 foreach (Collider2D collider in colliders)
                 {
-                    if (collider.CompareTag("Enemy") && !(Hit.Contains(collider)))
+                    if ((collider.CompareTag("Enemy") || collider.CompareTag("Destructible")) && !(Hit.Contains(collider)))
                     {
                         Hit.Add(collider);
                         EnemyHealthScript HPScript = (EnemyHealthScript)collider.gameObject.GetComponent("EnemyHealthScript");
@@ -190,7 +188,6 @@ namespace Platformer
             movingSpeed += 5;
             yield return new WaitForSeconds(0.5f);
             movingSpeed -= 7;
-            Dashing = false;
             yield return new WaitForSeconds(3f);
             movingSpeed += 2;
             SpriteRend.color = new Color(1f, 1f, 1f);

@@ -64,7 +64,7 @@ public class SlimeJump : MonoBehaviour
             Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheck.position, groundCheck.localScale, 0f);
             foreach (Collider2D collider in colliders)
             {
-                if (collider.name == "Collide")
+                if (collider.name == "Collide" || collider.tag == "Destructible")
                 {
                     Found = true;
                     break;

@@ -8,6 +8,8 @@ TagManager:
   - Gem
   - GameHandler
   - Spawn
+  - Coin
+  - Destructible
   layers:
   - Default
   - TransparentFX
