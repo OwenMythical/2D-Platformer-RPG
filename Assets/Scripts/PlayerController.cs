@@ -87,7 +87,7 @@ namespace Platformer
                 Anim.SetBool("Running", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
+            if ((Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.UpArrow))) && isGrounded )
             {
                 RB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
@@ -102,7 +102,7 @@ namespace Platformer
                 }
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
             {
                 if (AttackCooldown == false)
                 {
