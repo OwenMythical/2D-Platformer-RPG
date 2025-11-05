@@ -10,6 +10,8 @@ public class HealthManager : MonoBehaviour
     public int Health;
     public Rigidbody2D RB;
     public PlayerController PC;
+    public Animator ANM;
+    public BoxCollider2D BC;
     GameHandler GH;
     GameObject Spawn;
 
@@ -29,14 +31,11 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(int Damage,bool Launch, bool Knock, Vector3 Source)
     {
-        Health -= Damage;
-        if (Health < 1)
+        if (PC.Stunned == false)
         {
-            transform.position = Spawn.transform.position;
-            Health = MaxHealth;
-            GH.Died();
+            Health -= Damage;
         }
-        else if (Launch == true)
+        if (Launch == true)
         {
             RB.linearVelocity = new Vector2(0, 0);
             RB.AddForce(transform.up * 10, ForceMode2D.Impulse);
@@ -49,12 +48,29 @@ public class HealthManager : MonoBehaviour
             RB.linearVelocity = DirectionalForce * 5;
             StartCoroutine(Stun(0.5f));
         }
+        if (Health < 1)
+        {
+            StartCoroutine(Die());
+        }
 
         IEnumerator Stun(float StunTime)
         {
             PC.Stunned = true;
             yield return new WaitForSeconds(StunTime);
             PC.Stunned = false;
+        }
+        IEnumerator Die()
+        {
+            ANM.SetBool("Dead", true);
+            BC.enabled = false;
+            yield return new WaitForSeconds(1f);
+            BC.enabled = true;
+            ANM.SetBool("Dead", false);
+            RB.linearVelocity = new Vector2(0,0);
+            transform.position = Spawn.transform.position;
+            Health = MaxHealth;
+            GH.HealthChanged(Health);
+            GH.Died();
         }
         GH.HealthChanged(Health);
     }

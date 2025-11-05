@@ -1820,10 +1820,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6727869756898232861, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
-      propertyPath: Spawn
-      value: 
-      objectReference: {fileID: 80840474}
     - target: {fileID: 6952628394585513801, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.48
@@ -1867,18 +1863,6 @@ PrefabInstance:
     - target: {fileID: 6952628394585513906, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6952628394585513909, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
-      propertyPath: RB
-      value: 
-      objectReference: {fileID: 726273496}
-    - target: {fileID: 6952628394585513909, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
-      propertyPath: Walls
-      value: 
-      objectReference: {fileID: 1655761139}
-    - target: {fileID: 6952628394585513909, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
-      propertyPath: DashUnlocked
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13027,11 +13011,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &726273496 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 6952628394585513908, guid: a3dc7dd79a2fbc341a3fc828503f1ca9, type: 3}
-  m_PrefabInstance: {fileID: 340380706}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &735219881
 GameObject:
   m_ObjectHideFlags: 0

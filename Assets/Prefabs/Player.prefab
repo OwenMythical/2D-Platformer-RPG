@@ -1016,6 +1016,8 @@ MonoBehaviour:
   Health: 10
   RB: {fileID: 6952628394585513908}
   PC: {fileID: 6952628394585513909}
+  ANM: {fileID: 1273283242952835416}
+  BC: {fileID: 6952628394585513911}
 --- !u!95 &1273283242952835416
 Animator:
   serializedVersion: 7
