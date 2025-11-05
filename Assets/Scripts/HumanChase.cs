@@ -56,6 +56,20 @@ public class HumanChase : MonoBehaviour
                 RB.constraints = RigidbodyConstraints2D.FreezePositionX;
                 RB.linearVelocity = new Vector2(0, RB.linearVelocity.y);
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, 1, 1);
+                Found = false;
+                Collider2D[] colliders2 = Physics2D.OverlapBoxAll(AggroColl.position, AggroColl.localScale, 0f);
+                foreach (Collider2D collider in colliders2)
+                {
+                    if (collider.gameObject.name == "Player")
+                    {
+                        Found = true;
+                        break;
+                    }
+                }
+                if (Found == false)
+                {
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, 1, 1);
+                }
             }
         }
     }
