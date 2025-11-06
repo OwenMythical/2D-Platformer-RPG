@@ -55,7 +55,7 @@ public class ArcherScript : MonoBehaviour
     IEnumerator Fire()
     {
         //Anim.SetBool("Fired", true);
-        float DistanceX = (Player.position.x - transform.position.x) * ((float)RNG.Next(7,13)/10);
+        float DistanceX = (Player.position.x - transform.position.x) * ((float)RNG.Next(9,16)/10);
         StartCoroutine(ArrowS.Fired(gameObject.transform.position,DistanceX, RNG.Next(7,9)));
         yield return new WaitForSeconds(0.5f);
         //Anim.SetBool("Fired", false);
