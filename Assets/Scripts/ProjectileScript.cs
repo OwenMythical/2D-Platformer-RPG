@@ -29,6 +29,8 @@ public class ProjectileScript : MonoBehaviour
 
     void Update()
     {
-        //gameObject.transform.rotation = Quaternion.LookRotation();
+        float angleRadians = Mathf.Atan2(RB.linearVelocityY,RB.linearVelocityX);
+        float angleDegrees = angleRadians * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angleDegrees);
     }
 }
