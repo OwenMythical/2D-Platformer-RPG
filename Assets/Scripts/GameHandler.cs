@@ -34,7 +34,7 @@ public class GameHandler : MonoBehaviour
         PlayerM = (HealthManager)PlayerObj.GetComponent("HealthManager");
     }
 
-    public void GemCollected(int Value)
+    public void GemCollected(int Value, int LifeValue)
     {
         GemsCollected += Value;
         GemCounter.text = $"Gems: {GemsCollected}";
@@ -45,6 +45,10 @@ public class GameHandler : MonoBehaviour
         else
         {
             GemCounter.color = new Color(1, 0.8f, 1);
+        }
+        if (LifeValue > 0)
+        {
+            PlayerM.TakeDamage(-LifeValue,false,false,new Vector3(0,0,0));
         }
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GemCollect : MonoBehaviour
 {
     public int GemValue;
+    public int Life;
     GameHandler GH;
 
     void Awake()
@@ -15,8 +16,8 @@ public class GemCollect : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            GH.GemCollected(GemValue);
-            GH.AddScore(GemValue*50);
+            GH.GemCollected(GemValue,Life);
+            GH.AddScore((GemValue+(Life*2))*50);
             gameObject.SetActive(false);
         }
     }
