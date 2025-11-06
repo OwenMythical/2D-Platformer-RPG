@@ -15,7 +15,7 @@ public class GameHandler : MonoBehaviour
     GameObject[] Gems;
     HealthManager PlayerM;
 
-    string[] Scenes = {"Level1","Level2"};
+    string[] Scenes = {"Level1","Level2","Level3"};
 
     public static GameHandler instance = null;
 
