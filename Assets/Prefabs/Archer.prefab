@@ -629,3 +629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   Arrow: {fileID: 1430610611033174655}
   ArrowRB: {fileID: 1016240957378301651}
+  RB: {fileID: 1914699224373899002}
+  Anim: {fileID: 1923586041606636766}
+  Collider: {fileID: 8531976938134303482}
+  SRenderer: {fileID: 1804139957826789604}
+  AggroColl: {fileID: 5889591377532118815}
