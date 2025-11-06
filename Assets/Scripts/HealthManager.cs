@@ -23,13 +23,7 @@ public class HealthManager : MonoBehaviour
         gameObject.transform.position = Spawn.transform.position;
     }
 
-    public void Respawn()
-    {
-        Spawn = GameObject.FindGameObjectWithTag("Spawn");
-        gameObject.transform.position = Spawn.transform.position;
-    }
-
-    public void TakeDamage(int Damage,bool Launch, bool Knock, Vector3 Source)
+    public void TakeDamage(int Damage, bool Launch, bool Knock, Vector3 Source)
     {
         if (PC.Stunned == false)
         {
@@ -66,12 +60,18 @@ public class HealthManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             BC.enabled = true;
             ANM.SetBool("Dead", false);
-            RB.linearVelocity = new Vector2(0,0);
+            RB.linearVelocity = new Vector2(0, 0);
             transform.position = Spawn.transform.position;
             Health = MaxHealth;
             GH.HealthChanged(Health);
             GH.Died();
         }
         GH.HealthChanged(Health);
+    }
+   public IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Spawn = GameObject.FindGameObjectWithTag("Spawn");
+        gameObject.transform.position = Spawn.transform.position;
     }
 }

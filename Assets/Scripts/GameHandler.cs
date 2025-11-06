@@ -72,7 +72,7 @@ public class GameHandler : MonoBehaviour
     {
         SceneIndex += 1;
         SceneManager.LoadScene(Scenes[SceneIndex]);
-        PlayerM.Respawn();
+        StartCoroutine(PlayerM.Respawn());
     }
 
     public void HealthChanged(int Health)
