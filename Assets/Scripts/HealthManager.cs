@@ -48,6 +48,10 @@ public class HealthManager : MonoBehaviour
         {
             StartCoroutine(Die());
         }
+        if (Health > 10)
+        {
+            Health = 10;
+        }
         if (Health < 4)
         {
             GameObject GV = GameObject.FindGameObjectWithTag("GlobalVolume");
@@ -83,6 +87,12 @@ public class HealthManager : MonoBehaviour
             RB.linearVelocity = new Vector2(0, 0);
             transform.position = Spawn.transform.position;
             Health = MaxHealth;
+            GameObject GV = GameObject.FindGameObjectWithTag("GlobalVolume");
+            Volume V = (Volume)GV.GetComponent("Volume");
+            ColorAdjustments CA;
+            V.profile.TryGet<ColorAdjustments>(out CA);
+            CA.colorFilter.overrideState = false;
+            CA.postExposure.overrideState = false;
             GH.HealthChanged(Health);
             GH.Died();
         }

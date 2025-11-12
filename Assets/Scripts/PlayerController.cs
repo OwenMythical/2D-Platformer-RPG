@@ -141,7 +141,7 @@ namespace Platformer
             bool Found = false;
             foreach (Collider2D collider in colliders)
             {
-                if (collider.name == "Collide" || collider.tag == "Destructible")
+                if (collider.name == "Collide" || collider.tag == "Destructible" || collider.tag == "Platform")
                 {
                     Found = true;
                     break;
