@@ -21,14 +21,7 @@ public class ProjectileScript : MonoBehaviour
         gameObject.transform.position = StartPos;
         Renderer.enabled = true;
         Collider.enabled = true;
-        if (Height >= 0)
-        {
-            RB.linearVelocity = new Vector2(Speed, Height);
-        }
-        else
-        {
-            RB.linearVelocity = new Vector2(-Speed, -Height);
-        }
+        RB.linearVelocity = new Vector2(Speed, Height);
         RB.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(2f);
         RB.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -55,6 +48,12 @@ public class ProjectileScript : MonoBehaviour
                 Collider.enabled = false;
                 RB.constraints = RigidbodyConstraints2D.FreezePosition;
             }
+        }
+        if (collision.gameObject.name == "Collide")
+        {
+            Renderer.enabled = false;
+            Collider.enabled = false;
+            RB.constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
 

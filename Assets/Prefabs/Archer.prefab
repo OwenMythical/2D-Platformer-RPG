@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7274692573318688075}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f98e9508c72bea458adb4fbd79b7b37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.017027378, y: -0.0086502135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -137,7 +137,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.3239336, y: 0.1346423}
   m_EdgeRadius: 0
 --- !u!50 &1016240957378301651
 Rigidbody2D:
@@ -181,7 +181,6 @@ MonoBehaviour:
   RB: {fileID: 1016240957378301651}
   Collider: {fileID: 5089518041984306516}
   Renderer: {fileID: 5562458540964203457}
-  ArrowDirection: 0
 --- !u!1 &2013167811722455349
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 7, z: 1}
+  m_LocalScale: {x: 20, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7274692573318688075}
@@ -439,6 +438,7 @@ GameObject:
   - component: {fileID: 8531976938134303482}
   - component: {fileID: 1923586041606636766}
   - component: {fileID: 8225883983968830450}
+  - component: {fileID: 6760581828523241479}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Enemy
@@ -511,7 +511,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1d23dd054f727a4eb95aa8f29863602, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47cea8516c4d9dd4c9377ae3489c033e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -620,7 +620,7 @@ Animator:
   m_GameObject: {fileID: 7199007201117673887}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ececd74fb65049045bd45381ecea0719, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -651,3 +651,17 @@ MonoBehaviour:
   Collider: {fileID: 8531976938134303482}
   SRenderer: {fileID: 1804139957826789604}
   AggroColl: {fileID: 5889591377532118815}
+--- !u!114 &6760581828523241479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199007201117673887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09a4283b7411414787aa731349f2039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HurtOnContact
+  LaunchOnHurt: 0
+  KnockbackOnHurt: 1

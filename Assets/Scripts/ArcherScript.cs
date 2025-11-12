@@ -37,27 +37,43 @@ public class ArcherScript : MonoBehaviour
 
         if (Found == true)
         {
-            //Anim.SetBool("Aiming", true);
+            float DistanceX = (Player.position.x - transform.position.x);
+            if (DistanceX < 0)
+            {
+                SRenderer.flipX = true;
+            }
+            else if (DistanceX > 0)
+            {
+                SRenderer.flipX = false;
+            }
+            if (Aggro > 1250)
+            {
+                Anim.SetBool("Aiming", true);
+            }
             Aggro += 1;
-            if (Aggro > 2000)
+            if (Aggro > 1750)
             {
                 Aggro = 0;
+                Anim.SetBool("Aiming", false);
                 StartCoroutine(Fire());
             }
         }
         else
         {
-            //Anim.SetBool("Aiming", false);
+            Anim.SetBool("Aiming", false);
             Aggro -= 1;
+            if (Aggro < 0)
+            {
+                Aggro = 0;
+            }
         }
     }
 
     IEnumerator Fire()
     {
-        //Anim.SetBool("Fired", true);
-        float DistanceX = (Player.position.x - transform.position.x) * ((float)RNG.Next(9,16)/10);
-        StartCoroutine(ArrowS.Fired(gameObject.transform.position,DistanceX, RNG.Next(7,9)));
+        float DistanceX = (Player.position.x - transform.position.x) * ((float)RNG.Next(13,18)/10);
+        float DistanceY = (Player.position.y - transform.position.y) * ((float)RNG.Next(13,18)/10);
+        StartCoroutine(ArrowS.Fired(gameObject.transform.position,DistanceY+7,DistanceX));
         yield return new WaitForSeconds(0.5f);
-        //Anim.SetBool("Fired", false);
     }
 }
