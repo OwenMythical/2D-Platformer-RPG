@@ -61,14 +61,18 @@ public class GameHandler : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             Destroy(Player);
         }
-        else if (GemsCollected < 20)
+        else if (GemsCollected < 25)
         {
             GemsCollected = 0;
             GemCounter.color = new Color(1, 0, 0);
         }
         else
         {
-            GemsCollected /= 4;
+            GemsCollected /= 5;
+            if (GemsCollected < 10)
+            {
+                GemCounter.color = new Color(1, 0, 0);
+            }
         }
         GemCounter.text = $"Gems: {GemsCollected}";
     }
