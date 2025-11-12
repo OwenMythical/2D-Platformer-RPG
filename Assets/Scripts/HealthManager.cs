@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class HealthManager : MonoBehaviour
 {
@@ -45,6 +47,24 @@ public class HealthManager : MonoBehaviour
         if (Health < 1)
         {
             StartCoroutine(Die());
+        }
+        if (Health < 4)
+        {
+            GameObject GV = GameObject.FindGameObjectWithTag("GlobalVolume");
+            Volume V = (Volume)GV.GetComponent("Volume");
+            ColorAdjustments CA;
+            V.profile.TryGet<ColorAdjustments>(out CA);
+            CA.colorFilter.overrideState = true;
+            CA.postExposure.overrideState = true;
+        }
+        else
+        {
+            GameObject GV = GameObject.FindGameObjectWithTag("GlobalVolume");
+            Volume V = (Volume)GV.GetComponent("Volume");
+            ColorAdjustments CA;
+            V.profile.TryGet<ColorAdjustments>(out CA);
+            CA.colorFilter.overrideState = false;
+            CA.postExposure.overrideState = false;
         }
 
         IEnumerator Stun(float StunTime)
