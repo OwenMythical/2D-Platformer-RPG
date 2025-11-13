@@ -65500,7 +65500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthScript
   SRenderer: {fileID: 1748770131}
-  Health: 1
+  Health: 30
   Score: 5000
 --- !u!114 &1748770135
 MonoBehaviour:
