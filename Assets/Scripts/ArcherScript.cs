@@ -14,7 +14,7 @@ public class ArcherScript : MonoBehaviour
     public BoxCollider2D Collider;
     public SpriteRenderer SRenderer;
     public Transform AggroColl;
-    int Aggro = 0;
+    bool Aggroing = false;
 
     private void Awake()
     {
@@ -35,6 +35,11 @@ public class ArcherScript : MonoBehaviour
             }
         }
 
+        if (Found == true && Aggroing == false)
+        {
+            Aggroing = true;
+            StartCoroutine(AggroStart());
+        }
         if (Found == true)
         {
             float DistanceX = (Player.position.x - transform.position.x);
@@ -46,26 +51,6 @@ public class ArcherScript : MonoBehaviour
             {
                 SRenderer.flipX = false;
             }
-            if (Aggro > 1250)
-            {
-                Anim.SetBool("Aiming", true);
-            }
-            Aggro += 1;
-            if (Aggro > 1750)
-            {
-                Aggro = 0;
-                Anim.SetBool("Aiming", false);
-                StartCoroutine(Fire());
-            }
-        }
-        else
-        {
-            Anim.SetBool("Aiming", false);
-            Aggro -= 1;
-            if (Aggro < 0)
-            {
-                Aggro = 0;
-            }
         }
     }
 
@@ -75,5 +60,50 @@ public class ArcherScript : MonoBehaviour
         float DistanceY = (Player.position.y - transform.position.y) * ((float)RNG.Next(13,18)/10);
         StartCoroutine(ArrowS.Fired(gameObject.transform.position,DistanceY+7,DistanceX));
         yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator AggroStart()
+    {
+        yield return new WaitForSeconds(2.5f);
+
+        bool Found2 = false;
+        Collider2D[] colliders2 = Physics2D.OverlapBoxAll(AggroColl.position, AggroColl.localScale, 0f);
+        foreach (Collider2D collider in colliders2)
+        {
+            if (collider.gameObject.name == "Player")
+            {
+                Found2 = true;
+                break;
+            }
+        }
+
+        if (Found2 == true)
+        {
+            Anim.SetBool("Aiming", true);
+            yield return new WaitForSeconds(1f);
+
+            bool Found3 = false;
+            Collider2D[] colliders3 = Physics2D.OverlapBoxAll(AggroColl.position, AggroColl.localScale, 0f);
+            foreach (Collider2D collider in colliders3)
+            {
+                if (collider.gameObject.name == "Player")
+                {
+                    Found3 = true;
+                    break;
+                }
+            }
+
+            if (Found3 == true)
+            {
+                StartCoroutine(Fire());
+            }
+            Anim.SetBool("Aiming", false);
+            Aggroing = false;
+        }
+        else
+        {
+            Anim.SetBool("Aiming", false);
+            Aggroing = false;
+        }
     }
 }

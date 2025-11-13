@@ -31,26 +31,30 @@ public class WizardScript : MonoBehaviour
         StartPos = gameObject.transform.position;
     }
 
-    void Update()
+    IEnumerator Start()
     {
-        if (Active == true)
+        while (true)
         {
-            Timer += 1;
-            if (Timer > 750)
+            yield return new WaitForSeconds(0.25f);
+            if (Active == true)
             {
-                if (Attack > 5)
+                Timer += 1;
+                if (Timer > 5)
                 {
-                    Timer = 0;
-                    gameObject.transform.position = StartPos + new Vector3(0, -1.5f, 0);
-                    StartCoroutine(Return(5f,true));
-                }
-                else
-                {
-                    Timer = 0;
-                    Attack += 1;
-                    int PosOffset = RNG.Next(-5,6);
-                    gameObject.transform.position = StartPos + new Vector3(PosOffset, 0, 0);
-                    StartCoroutine(SummonOrbs());
+                    if (Attack > 5)
+                    {
+                        Timer = 0;
+                        gameObject.transform.position = StartPos + new Vector3(0, -1.5f, 0);
+                        StartCoroutine(Return(5f, true));
+                    }
+                    else
+                    {
+                        Timer = 0;
+                        Attack += 1;
+                        int PosOffset = RNG.Next(-5, 6);
+                        gameObject.transform.position = StartPos + new Vector3(PosOffset, 0, 0);
+                        StartCoroutine(SummonOrbs());
+                    }
                 }
             }
         }

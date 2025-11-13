@@ -35,7 +35,7 @@ public class HumanChase : MonoBehaviour
             else
             {
                 Boredom += RNG.Next(1,3);
-                if (Boredom > 1500)
+                if (Boredom > 500)
                 {
                     Boredom = 0;
                     gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, 1, 1);
