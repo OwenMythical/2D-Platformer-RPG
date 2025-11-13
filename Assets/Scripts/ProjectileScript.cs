@@ -23,7 +23,7 @@ public class ProjectileScript : MonoBehaviour
         Collider.enabled = true;
         RB.linearVelocity = new Vector2(Speed,Height);
         RB.constraints = RigidbodyConstraints2D.None;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         RB.constraints = RigidbodyConstraints2D.FreezePosition;
         Renderer.enabled = false;
         Collider.enabled = false;
