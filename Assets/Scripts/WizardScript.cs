@@ -36,10 +36,11 @@ public class WizardScript : MonoBehaviour
         if (Active == true)
         {
             Timer += 1;
-            if (Timer > 500)
+            if (Timer > 750)
             {
                 if (Attack > 5)
                 {
+                    Timer = 0;
                     gameObject.transform.position = StartPos + new Vector3(0, -1.5f, 0);
                     StartCoroutine(Return(5f,true));
                 }

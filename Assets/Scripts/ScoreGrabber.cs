@@ -20,23 +20,27 @@ public class ScoreGrabber : MonoBehaviour
         {
             ScoreDisplay.text = $"Final Score: {Score} (Purposefully Bad.)";
         }
-        else if (Score < 15000)
+        else if (Score < 20000)
         {
             ScoreDisplay.text = $"Final Score: {Score} (Not That Great.)";
         }
-        else if (Score < 20000)
+        else if (Score < 30000)
         {
             ScoreDisplay.text = $"Final Score: {Score} (Good Enough.)";
         }
-        else if (Score < 25000)
+        else if (Score < 40000)
         {
             ScoreDisplay.text = $"Final Score: {Score} (Decent!)";
         }
-        else if (Score < 30000)
+        else if (Score < 50000)
+        {
+            ScoreDisplay.text = $"Final Score: {Score} (Pretty Good!)";
+        }
+        else if (Score < 60000)
         {
             ScoreDisplay.text = $"Final Score: {Score} (Amazing!)";
         }
-        else if (Score >= 30000)
+        else if (Score >= 60000)
         {
             ScoreDisplay.text = $"Final Score: {Score} (You Did Perfectly!)";
         }
