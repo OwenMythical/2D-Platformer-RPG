@@ -1,6 +1,7 @@
 using Platformer;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,14 +9,14 @@ public class GameHandler : MonoBehaviour
 {
     int GemsCollected = 10;
     int SceneIndex = 0;
-    int Score = 0;
+    public int Score = 0;
     public TMP_Text GemCounter;
     public TMP_Text HealthCounter;
     public TMP_Text ScoreCounter;
     GameObject[] Gems;
     HealthManager PlayerM;
 
-    string[] Scenes = {"Level1","Level2","Level3"};
+    string[] Scenes = {"Level1","Level2","Level3","End"};
 
     public static GameHandler instance = null;
 
@@ -75,12 +76,26 @@ public class GameHandler : MonoBehaviour
             }
         }
         GemCounter.text = $"Gems: {GemsCollected}";
+
+        GameObject Wizard = GameObject.FindGameObjectWithTag("Wizard");
+        WizardScript WizardS = (WizardScript)Wizard.GetComponent("WizardScript");
+        StartCoroutine(WizardS.Return(0f,false));
     }
     public void NextLevel()
     {
         SceneIndex += 1;
         SceneManager.LoadScene(Scenes[SceneIndex]);
         StartCoroutine(PlayerM.Respawn());
+    }
+
+    public void BossDefeat()
+    {
+        SceneIndex += 1;
+        SceneManager.LoadScene(Scenes[SceneIndex]);
+        Destroy(PlayerM.gameObject);
+        Destroy(GemCounter);
+        Destroy(HealthCounter);
+        Destroy(ScoreCounter);
     }
 
     public void HealthChanged(int Health)

@@ -169,7 +169,7 @@ namespace Platformer
                 Collider2D[] colliders = Physics2D.OverlapBoxAll(AttackBox.transform.position, AttackBox.size, 0f);
                 foreach (Collider2D collider in colliders)
                 {
-                    if ((collider.CompareTag("Enemy") || collider.CompareTag("Destructible")) && !(Hit.Contains(collider)))
+                    if ((collider.CompareTag("Enemy") || collider.CompareTag("Wizard") || collider.CompareTag("Destructible")) && !(Hit.Contains(collider)))
                     {
                         Hit.Add(collider);
                         EnemyHealthScript HPScript = (EnemyHealthScript)collider.gameObject.GetComponent("EnemyHealthScript");

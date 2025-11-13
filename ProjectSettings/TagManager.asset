@@ -13,6 +13,8 @@ TagManager:
   - Tilemap
   - GlobalVolume
   - Platform
+  - Wizard
+  - WTrigger
   layers:
   - Default
   - TransparentFX

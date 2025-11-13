@@ -8,11 +8,13 @@ public class EnemyHealthScript : MonoBehaviour
     public int Health;
     public int Score;
     GameHandler GH;
+    int MHealth;
 
     void Awake()
     {
         GameObject HandlerObject = GameObject.FindGameObjectWithTag("GameHandler");
         GH = (GameHandler)HandlerObject.GetComponent("GameHandler");
+        MHealth = Health;
     }
     public IEnumerator TakeDamage(int Damage)
     {
@@ -21,6 +23,11 @@ public class EnemyHealthScript : MonoBehaviour
         {
             GH.AddScore(Score);
             Destroy(gameObject);
+            if (gameObject.name == "Wizard")
+            {
+                yield return new WaitForSeconds(1f);
+                GH.BossDefeat();
+            }
         }
         else
         {
@@ -28,5 +35,10 @@ public class EnemyHealthScript : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             SRenderer.color = new Color(1f, 1f, 1f);
         }
+    }
+
+    public void Heal()
+    {
+        Health = MHealth;
     }
 }
